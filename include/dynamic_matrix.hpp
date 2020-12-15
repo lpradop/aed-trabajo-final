@@ -30,6 +30,7 @@ public:
   DataType& operator()(SizeType i, SizeType j) const;
 
   ordered_pair<SizeType, SizeType> size() const noexcept { return size_; }
+  void print() const noexcept;
   void resize(SizeType rows, SizeType columns); // TODO
   dynamic_matrix transpose() const noexcept;    // todo
 
@@ -327,6 +328,18 @@ void dynamic_matrix<DataType, SizeType>::product_helper(
 
       _mm256_maskstore_epi32(c_block_pointer, mask, c_block);
     }
+  }
+}
+
+// row major order print
+template <concepts::numeric DataType, concepts::numeric SizeType>
+void dynamic_matrix<DataType, SizeType>::print() const noexcept {
+  for (SizeType i{0}; i < matrix_data_size_; ++i) {
+    if (i % size_.y == 0) {
+      std::cout << "row: " << i / size_.y << std::endl;
+    }
+
+    std::cout << matrix_data_[i] << std::endl;
   }
 }
 } // namespace brocolio::container
