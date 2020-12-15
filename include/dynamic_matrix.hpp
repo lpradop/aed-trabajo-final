@@ -245,6 +245,7 @@ dynamic_matrix<DataType, SizeType>::operator*=(dynamic_matrix const& rhs) {
                        result_pointer, ncolumns_of_rhs);
         rhs_pointer += nrows_of_rhs;
       }
+      rhs_pointer = rhs.matrix_data_;
       result_pointer += nrows_of_rhs;
     }
 

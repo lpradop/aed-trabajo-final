@@ -1,16 +1,7 @@
 using LinearAlgebra
 using Random
-# cycle graph
 
-function generateWeights(X)
-    for i in 1:length(X)
-        X[i] = rand((1:80))
-    end
-end
-
-function minRepeatedRoute(X)
-    return 2 * (sum(X) - maximum(X))
-end
+include("graph-related.jl")
 
 function repeatedVsCircular(X, sample_size=1e5)
     # return the probability of min cost (repeated, circular)
@@ -19,7 +10,7 @@ function repeatedVsCircular(X, sample_size=1e5)
 
     for i = 1:sample_size
         generateWeights(X)
-        if minRepeatedRoute(X) < sum(X)
+        if minRepeatedClosedWalk(X) < sum(X)
             repeated_route_count += 1
         else
             circular_route_count += 1
@@ -29,7 +20,6 @@ function repeatedVsCircular(X, sample_size=1e5)
     return (repeated_route_count / sample_size,
         circular_route_count / sample_size)
 end
-
 
 for i in 3:10
     X = zeros(i)
