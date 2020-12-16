@@ -30,6 +30,9 @@ public:
   DataType& operator()(SizeType i, SizeType j) const;
 
   ordered_pair<SizeType, SizeType> size() const noexcept { return size_; }
+  SizeType rows() const noexcept { return size_.x; };
+  SizeType columns() const noexcept { return size_.y; };
+
   void print() const noexcept;
   void resize(SizeType rows, SizeType columns); // TODO
   dynamic_matrix transpose() const noexcept;    // todo
